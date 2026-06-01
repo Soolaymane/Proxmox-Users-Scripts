@@ -13,7 +13,11 @@ pools = yaml.safe_load(subprocess.check_output(
 ))
 
 users_l = [k['userid'].split('@')[0] for k in users if k['userid'].split('@')[1] == 'ldap']
-pool_l = [k['poolid'].split('-')[1] for k in pools]
+pool_l = [
+    k['poolid'].split('-', 1)[1]
+    for k in pools
+    if '-' in k['poolid']
+]
 
 
 for user in users_l:
